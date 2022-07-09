@@ -1,0 +1,107 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <h1 class="h3 mb-3 text-gray-800">Table Firebase</h1>
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <div class="row">
+                <div class="col-9">
+                    <h6 class="m-0 font-weight-bold text-primary">Table of Products</h6>
+                </div>
+                <div class="col-3 float-right">
+                    <form
+                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+                        <div class="input-group">
+                            <input type="text" id="input-search" class="form-control bg-light border-0 small" 
+                            placeholder="Search for">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" (click)="search()">
+                                    <i class="fas fa-search fa-sm"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center text-dark">ID</th>
+                            <th class="text-center text-dark">Name</th>
+                            <th class="text-center text-dark">Brand</th>
+                            <th class="text-center text-dark">Type</th>
+                            <th class="text-center text-dark">Color</th>
+                            <th class="text-center text-dark">Ram</th>
+                            <th class="text-center text-dark">Memory</th>
+                            <th class="text-center text-dark">Price</th>
+                            <th class="text-center text-dark">Warranty</th>
+                            <th class="text-center text-dark">Quantity</th>
+                            <th class="text-center text-dark">Status</th>
+                            <th class="text-center text-dark">Editor</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th class="text-center text-dark">ID</th>
+                            <th class="text-center text-dark">Name</th>
+                            <th class="text-center text-dark">Brand</th>
+                            <th class="text-center text-dark">Type</th>
+                            <th class="text-center text-dark">Color</th>
+                            <th class="text-center text-dark">Ram</th>
+                            <th class="text-center text-dark">Memory</th>
+                            <th class="text-center text-dark">Price</th>
+                            <th class="text-center text-dark">Warranty</th>
+                            <th class="text-center text-dark">Quantity</th>
+                            <th class="text-center text-dark">Status</th>
+                            <th class="text-center text-dark">Editor</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        <tr *ngFor="let product of products | paginate: config">
+                            <td class="text-center text-dark">{{product.Product_Id}}</td>
+                            <td class="text-center text-dark">{{product.Product_Name}}</td>
+                            <td class="text-center text-dark">{{product.Brand}}</td>
+                            <td class="text-center text-dark">{{product.Type}}</td>
+                            <td class="text-center text-dark">{{product.Color}}</td>
+                            <td class="text-center text-dark">{{product.Ram}} GB</td>
+                            <td class="text-center text-dark">{{product.Memory}} GB</td>
+                            <td class="text-center text-dark">{{formatPrice(product.Price)}} VND</td>
+                            <td class="text-center text-dark">{{product.Warranty}} Months</td>
+                            <td class="text-center text-dark">{{product.Quantity}} items</td>
+                            <td class="float-center">
+                                <div class="text-center text-white" [ngStyle]="{
+                                    'border' : product.Status === 'Available' ? '1px solid rgb(67, 160, 71)' : product.Status === 'Sold out' ? '1px solid #cd0000' : '1px solid #f25c05',
+                                    'background-color': product.Status === 'Available' ? 'rgb(67, 160, 71)' : product.Status === 'Sold out' ? '#cd0000' : '#f25c05',
+                                    'border-radius': '45px',
+                                    'width': 'max-content',
+                                    'padding': '4px',
+                                    'padding-left': 'inherit',
+                                    'padding-right': 'inherit',
+                                    'height':' max-content',
+                                    'font-weight': 'bold'
+                                }">
+                                    {{product.Status}}</div>
+                            </td>
+                            <td>
+                                <div style="flex-direction: row; justify-content: center">
+                                    <a (click)="update(product.Product_Id)" class="mr-1"><span
+                                            class="fas fa-edit"></span></a>
+                                    <a (click)="delete(product.Product_Id)" class="mr-2"><span
+                                            class="fas fa-trash-alt"></span></a>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <pagination-controls class=" text-right text-dark" (pageChange)="pageChanged($event)">
+                </pagination-controls>
+                <button class="btn btn-primary mt-3 float-right" routerLink="/home/insertproduct">Add</button>
+            </div>
+        </div>
+    </div>
+
+</div>
