@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Product } from '../../models/models';
 import { ProductsService } from '../../services/products/products.service';
 import { Router } from '@angular/router';
-import { ThisReceiver } from '@angular/compiler';
 
 @Component({
   selector: 'app-table-nodejs',
@@ -14,7 +13,8 @@ export class TableNodejsComponent implements OnInit {
   products: Product[] = [];
   config: any;
 
-  constructor(private service: ProductsService, private router: Router,) { }
+  constructor(private service: ProductsService, private router: Router,) {
+  }
 
   ngOnInit(): void {
     this.service.getList().subscribe((data) => {
@@ -65,15 +65,117 @@ export class TableNodejsComponent implements OnInit {
 
   deleteProduct(id: number) {
     let productID: string = String(id);
-    this.service.deleteProduct(productID).subscribe((data) => {
-      this.ngOnInit();
-    });
+    sessionStorage.setItem("IdProductDeleteNodeJS", productID);
   }
 
   onClickUpdate(id: number) {
     let productID: string = String(id);
-    sessionStorage.setItem("IdProductUpdateNodeJS",productID);
+    sessionStorage.setItem("IdProductUpdateNodeJS", productID);
     this.router.navigate(["/home/updateproductnodejs"]);
   }
 
+  receiveMessage($event: string) {
+    let message: string = $event
+    if (message === "deleteSuccessful") {
+      this.ngOnInit();
+    }
+  }
+
+  filter() {
+    let txtFilter: string = String((document.getElementById('filter') as HTMLInputElement).value)
+    if (txtFilter === "All") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Apple") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Samsung") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Lenovo") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Available") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Upcoming") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Sold out") {
+      this.service.getList().subscribe((data) => {
+        this.products = data;
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+  }
 }

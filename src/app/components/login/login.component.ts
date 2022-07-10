@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
       <hr class="solid mt-4"/>
       <p>`+err.message.slice(9)+`</p> 
       `;
+      (<HTMLInputElement> document.getElementById("btn-login")).disabled = false;
     });
   }
 

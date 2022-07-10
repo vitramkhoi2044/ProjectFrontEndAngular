@@ -6,22 +6,24 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <div class="row">
-                <div class="col-9">
+                <div class="col-10">
                     <h6 class="m-0 font-weight-bold text-primary">Table of Products</h6>
                 </div>
-                <div class="col-3 float-right">
-                    <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" id="input-search" class="form-control bg-light border-0 small" 
-                            placeholder="Search for">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button" (click)="search()">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <div class="col-2">
+                    <label for="filter" style="marginRight:10px ;">Filter</label>
+                    <select id="filter" name="filter" (change)="filter()" >
+                        <option>All</option>
+                        <optgroup label="Brand">
+                            <option>Apple</option>
+                            <option>Samsung</option>
+                            <option>OPPO</option>
+                        </optgroup>
+                        <optgroup label="Status">
+                            <option>Available</option>
+                            <option>Upcoming</option>
+                            <option>Sold out</option>
+                        </optgroup>
+                    </select>
                 </div>
             </div>
         </div>
@@ -90,8 +92,8 @@
                                 <div style="flex-direction: row; justify-content: center">
                                     <a (click)="update(product.Product_Id)" class="mr-1"><span
                                             class="fas fa-edit"></span></a>
-                                    <a (click)="delete(product.Product_Id)" class="mr-2"><span
-                                            class="fas fa-trash-alt"></span></a>
+                                    <a (click)="delete(product.Product_Id)" class="mr-2" data-toggle="modal"
+                                        data-target="#deleteModal"><span class="fas fa-trash-alt"></span></a>
                                 </div>
                             </td>
                         </tr>
@@ -103,5 +105,8 @@
             </div>
         </div>
     </div>
-
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <app-deletemodal></app-deletemodal>
+    </div>
 </div>

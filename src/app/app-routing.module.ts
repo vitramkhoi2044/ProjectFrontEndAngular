@@ -1,3 +1,4 @@
+import { DeletemodalComponent } from './components/deletemodal/deletemodal.component';
 import { FormUpdateProductComponent } from './components/form-update-product/form-update-product.component';
 import { FormUpdateProductNodejsComponent } from './components/form-update-product-nodejs/form-update-product-nodejs.component';
 import { FormInsertProductComponent } from './components/form-insert-product/form-insert-product.component';
@@ -23,7 +24,7 @@ const routes: Routes = [
       { path: 'insertproductnodejs', component: FormInsertProductNodejsComponent },
       { path: 'updateproductnodejs', component: FormUpdateProductNodejsComponent },
       { path: 'insertproduct', component: FormInsertProductComponent },
-      { path: 'updateproduct', component: FormUpdateProductComponent }
+      { path: 'updateproduct', component: FormUpdateProductComponent },
     ]
   },
   { path: 'login', component: LoginComponent },

@@ -26,6 +26,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { FormInsertProductComponent } from './components/form-insert-product/form-insert-product.component';
 import { FormUpdateProductNodejsComponent } from './components/form-update-product-nodejs/form-update-product-nodejs.component';
 import { FormUpdateProductComponent } from './components/form-update-product/form-update-product.component';
+import { DeletemodalComponent } from './components/deletemodal/deletemodal.component';
+import { DeletemodalnodejsComponent } from './components/deletemodalnodejs/deletemodalnodejs.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { FormUpdateProductComponent } from './components/form-update-product/for
     RegisterComponent,
     FormInsertProductComponent,
     FormUpdateProductNodejsComponent,
-    FormUpdateProductComponent
+    FormUpdateProductComponent,
+    DeletemodalComponent,
+    DeletemodalnodejsComponent
   ],
   imports: [
     AngularFireModule.initializeApp(environment.firebase),

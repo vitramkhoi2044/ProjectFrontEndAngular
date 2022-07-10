@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
-import {Product} from '../../models/models';
+import { Product } from '../../models/models';
 
 
 @Component({
@@ -16,7 +16,7 @@ export class TableComponent implements OnInit {
   products: Product[] = [];
   config: any;
 
-  constructor(private readonly tmp: AngularFirestore, private router : Router) {
+  constructor(private readonly tmp: AngularFirestore, private router: Router) {
     this.productsCollection = this.tmp.collection<Product>('products');
     this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
       this.products = data.sort(function (a: Product, b: Product) {
@@ -24,7 +24,6 @@ export class TableComponent implements OnInit {
         else if (a.Product_Id < b.Product_Id) return -1;
         return 0;
       });
-      console.log(this.products);
       this.config = {
         itemsPerPage: 3,
         currentPage: 1,
@@ -94,35 +93,144 @@ export class TableComponent implements OnInit {
 
   update(id: number) {
     let docId: string = String(id);
-    sessionStorage.setItem("IdProductUpdate",docId);
+    sessionStorage.setItem("IdProductUpdate", docId);
     this.router.navigate(["/home/updateproduct"]);
   }
 
   delete(id: number) {
     let docId: string = String(id);
-    this.productsCollection.doc(docId).delete();
+    sessionStorage.setItem("IdProductDelete", docId);
   }
-  search(){
-    let input: string = String((<HTMLInputElement> document.getElementById("input-search")).value);
-    if(input!=""){
-      this.products = this.products.filter(function(products){
-          return products.Product_Name === input;
-      })
-      if(this.products.length === 0){
-        this.products = this.products.filter(function(products){
-            return products.Brand === input;
-        })
-      }
-    }
-    else{
+
+  filter() {
+    let txtFilter: string = String((document.getElementById('filter') as HTMLInputElement).value)
+    if (txtFilter === "All") {
       this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
         this.products = data.sort(function (a: Product, b: Product) {
           if (a.Product_Id > b.Product_Id) return 1;
           else if (a.Product_Id < b.Product_Id) return -1;
           return 0;
         });
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      })
+    }
+
+    else if (txtFilter === "Apple") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
       });
     }
-    console.log(this.products)
+
+    else if (txtFilter === "Samsung") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "OPPO") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Brand) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Available") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Sold out") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
+
+    else if (txtFilter === "Upcoming") {
+      this.productsCollection.valueChanges({ idField: 'docId' }).subscribe(data => {
+        this.products = data.sort(function (a: Product, b: Product) {
+          if (a.Product_Id > b.Product_Id) return 1;
+          else if (a.Product_Id < b.Product_Id) return -1;
+          return 0;
+        });
+        this.products = this.products.filter(function (product) {
+          return String(product.Status) === String(txtFilter);
+        });
+        console.log(this.products);
+        this.config = {
+          itemsPerPage: 3,
+          currentPage: 1,
+          totalItems: this.products.length,
+        };
+      });
+    }
   }
 }
