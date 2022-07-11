@@ -72,25 +72,6 @@ export class TableComponent implements OnInit {
     sessionStorage.setItem("TotalProduct", totalProducts);
   }
 
-  add(Product_Name: string, Brand: string, Type: string, Color: string, Ram: number, Memory: number,
-    Price: number, Warranty: number, Quantity: number, Status: string) {
-    let data = {
-      "Product_Id": Number(sessionStorage.getItem("TotalProduct")) + 1,
-      "Product_Name": Product_Name,
-      "Brand": Brand,
-      "Type": Type,
-      "Color": Color,
-      "Ram": Ram,
-      "Memory": Memory,
-      "Price": Price,
-      "Warranty": Warranty,
-      "Quantity": Quantity,
-      "Status": Status
-    }
-    let docId: string = String(Number(sessionStorage.getItem("TotalProduct")) + 1);
-    this.productsCollection.doc(docId).set(Object.assign({}, data));
-  }
-
   update(id: number) {
     let docId: string = String(id);
     sessionStorage.setItem("IdProductUpdate", docId);
